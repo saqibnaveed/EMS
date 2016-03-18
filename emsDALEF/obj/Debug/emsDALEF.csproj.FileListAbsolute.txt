@@ -1,0 +1,10 @@
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\bin\Debug\emsDALEF.dll.config
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\bin\Debug\emsDALEF.dll
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\bin\Debug\emsDALEF.pdb
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\bin\Debug\EntityFramework.dll
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\bin\Debug\EntityFramework.SqlServer.dll
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\bin\Debug\EntityFramework.xml
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\bin\Debug\EntityFramework.SqlServer.xml
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\obj\Debug\emsDALEF.csprojResolveAssemblyReference.cache
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\obj\Debug\emsDALEF.dll
+E:\Documents\Visual Studio 2015\Projects\ems\emsDALEF\obj\Debug\emsDALEF.pdb

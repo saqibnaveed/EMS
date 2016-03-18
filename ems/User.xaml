@@ -1,0 +1,182 @@
+﻿<Window x:Class="ems.User"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ems"
+        mc:Ignorable="d"
+        Title="User" MinHeight="470" MinWidth="440" Height="470" Width="440" AllowsTransparency="False" WindowStyle="None" WindowStartupLocation="CenterScreen">
+
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Control}" x:Key="TooltipInError">
+
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="true">
+                            <Border Background="#ff5c1779" DockPanel.Dock="right" Margin="10,0,0,0" Width="24" Height="24" CornerRadius="14"
+                            ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white">
+                                </TextBlock>
+                            </Border>
+                            <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                                <Border BorderBrush="#ff5c1779" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="userBg">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="91*"/>
+            <RowDefinition Height="74*"/>
+            <RowDefinition Height="66*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="actionPanelShadow" Height="11" VerticalAlignment="Top" Margin="0,85,0,0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF777777" Offset="0"/>
+                    <GradientStop Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+        </Grid>
+        <Rectangle x:Name="border" Stroke="#FF777777" Visibility="Visible" StrokeThickness="4" Grid.RowSpan="3" />
+        <Grid x:Name="actionPanel" Background="#ff777777" Height="85" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="59*"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="statusbar" Background="#22000000" Height="27" VerticalAlignment="Bottom" Margin="-1,0,1,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="btnMainClose" Source="E:\Desktop\res\ic_close_white_48dp.png" HorizontalAlignment="Right" Width="21" Margin="0,0,6,3" MouseLeftButtonUp="btnMainClose_MouseLeftButtonUp" Grid.Row="1"/>
+                <Image x:Name="btnMainMaximize" Source="E:\Desktop\res\ic_call_made_white_48dp.png" HorizontalAlignment="Right" Width="21" Margin="0,0,32,3" MouseLeftButtonUp="btnMainMaximize_MouseLeftButtonUp" Grid.Row="1"/>
+                <Image x:Name="btnMainMinimze" Source="E:\Desktop\res\ic_remove_white_48dp.png" HorizontalAlignment="Right" Width="21" Margin="0,0,58,3" RenderTransformOrigin="-0.426,0.481" Grid.Row="1" MouseLeftButtonUp="btnMainMinimze_MouseLeftButtonUp"/>
+                <Image x:Name="btnMainMove" Cursor="SizeAll" Source="E:\Desktop\res\ic_open_with_white_48dp.png" Margin="6,0,0,4" RenderTransformOrigin="-0.426,0.481" Grid.Row="1" HorizontalAlignment="Left" Width="21" MouseDown="btnMainMove_MouseDown"/>
+                <Grid x:Name="resizeBarUp" Height="3" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0*"/>
+                        <RowDefinition Height="8"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+                <Label x:Name="statusbarTime" Content="Date" Margin="163,0" Grid.Row="1" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
+
+            <Image x:Name="btnBack" Source="E:\Desktop\res\ic_arrow_back_white_48dp.png" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="39" MouseLeftButtonUp="btnBack_MouseLeftButtonUp" Cursor="Hand" Visibility="Hidden"/>
+            <Label x:Name="actionPanelLabel" Content="" HorizontalAlignment="Left" Margin="54,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="309" Height="39" Foreground="White" FontSize="21.333" FontWeight="Bold"/>
+            <Image x:Name="signOffUser" Cursor="Hand" Source="E:\Desktop\res\ic_mood_white_48dp.png" MouseLeftButtonUp="signOffUser_MouseLeftButtonUp" HorizontalAlignment="Right" Width="59" Grid.Row="1" Margin="0,0,5,0"/>
+
+        </Grid>
+
+        <Grid x:Name="LastLoginScreenShadow" Margin="100,18,86,25" Background="#FFCBCBCB" Visibility="Hidden" Grid.Row="1"/>
+        <Grid x:Name="LastLoginScreen" Margin="100,14,90,27" Background="#FFE4E4E4" Visibility="Hidden" Grid.Row="1">
+
+            <Grid x:Name="lastLoginShadow" Margin="15,31,8,28" Background="#FFBDBDBD" Opacity="0.90"/>
+            <Label x:Name="lastLogin" Content="Last Login Date" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="12,30,10,30" HorizontalContentAlignment="Center"/>
+        </Grid>
+
+        <Grid x:Name="currentEventScreenShadow" Margin="58,136,42,56" Background="#FFCBCBCB" Visibility="Hidden" Grid.RowSpan="3" />
+        <Grid x:Name="currentEventScreen" Margin="51,129,44,59" Background="#FFE4E4E4" Visibility="Hidden" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="188*"/>
+                <ColumnDefinition Width="149*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="87*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="currentEventBGShadow" Margin="28,10,18,11" Background="#FFBDBDBD" Opacity="0.90" Grid.ColumnSpan="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="currentEventBGTxt" Cursor="Arrow" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-3,0,3,3" HorizontalContentAlignment="Center"/>
+            </Grid>
+            <Image x:Name="currentEventImage" Grid.Column="1" Margin="10,10,18,10"/>
+        </Grid>
+
+        <Grid x:Name="eventDetailScreenShadow" Margin="58,136,42,56" Background="#FFCBCBCB" Visibility="Hidden" Grid.RowSpan="3" />
+        <Grid x:Name="eventDetailScreen" Margin="51,129,44,59" Background="#FFE4E4E4" Visibility="Hidden" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="188*"/>
+                <ColumnDefinition Width="149*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="87*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="eventDetailBGShadow" Margin="28,10,18,11" Background="#FFBDBDBD" Opacity="0.90" Grid.ColumnSpan="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="eventDetailBGTxt" Cursor="Arrow" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-3,0,3,3" HorizontalContentAlignment="Center" Height="150" VerticalAlignment="Bottom">
+                    <Label x:Name="temporarylabel" Content="details, also show cost from billing table"/>
+                </Label>
+            </Grid>
+            <Image x:Name="eventDetailImage" Grid.Column="1" Margin="10,10,18,10"/>
+        </Grid>
+
+        <Grid x:Name="viewEventsScreenShadow" Margin="100,18,86,25" Background="#FFCBCBCB" Visibility="Hidden" Grid.Row="1">
+            <ListView x:Name="listView" Margin="0,0,0,5">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid x:Name="viewEventsScreen" Margin="53,121,42,67" Background="#FFE4E4E4" Visibility="Hidden" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ListView x:Name="eventList" Margin="36,37,39,36">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding C_Event_id}" HorizontalAlignment="Center" Visibility="Hidden"></TextBlock>
+                            <TextBlock Text="{Binding event_name}" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!-- <DataGrid x:Name="dataGrid" Margin="10" SelectionChanged="dataGrid_SelectionChanged" Grid.RowSpan="2"/> -->
+
+        </Grid>
+
+        <Grid x:Name="userMainScreenShadow" Margin="104,139,90,63" Background="#FFCBCBCB" Visibility="Visible" Grid.RowSpan="3"/>
+        <Grid x:Name="userMainScreen" Margin="96,129,94,67" Background="#FFE4E4E4" Visibility="Visible" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="88*"/>
+                <RowDefinition Height="83*"/>
+                <RowDefinition Height="95*"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="viewEventBtnShadow" Margin="63,36,58,6" Background="#FFBDBDBD" Opacity="0.90">
+                <Label x:Name="viewEventsBtn" Cursor="Hand" Content="View Events" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-2,-3,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="viewEventsBtn_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="63,19,58,29" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="2">
+                <Label x:Name="checkLastLoginBtn" Cursor="Hand" Content="Check Last Login" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-3,-3,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="checkLastLoginBtn_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="63,25,58,12" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="1">
+                <Label x:Name="currentEventsBtn" Cursor="Hand" Content="Current Event" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-3,-3,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="currentEventsBtn_MouseLeftButtonUp"/>
+            </Grid>
+        </Grid>
+
+        <Ellipse x:Name="fabShadow" Fill="#66777777" Margin="0,0,22,21" Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="48" Grid.Row="2" />
+        <Ellipse x:Name="fabBg" Fill="#FF777777" Margin="0,0,24,24" Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="48" Grid.Row="2" />
+        <Image x:Name="fabTask"  Margin="0,0,32,32" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="32" Grid.Row="2"/>
+        <Ellipse x:Name="fab" Fill="#00000000" Margin="0,0,24,24" Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="48" MouseLeftButtonUp="fab_MouseLeftButtonUp" MouseEnter="fab_MouseEnter" MouseLeave="fab_MouseLeave" Opacity="0" Grid.Row="2"  />
+
+    </Grid>
+</Window>

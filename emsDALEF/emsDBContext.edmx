@@ -1,0 +1,645 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="emsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="table_Admin">
+          <Key>
+            <PropertyRef Name="_Admin_id" />
+          </Key>
+          <Property Name="_Admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="admin_password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="admin_phone" Type="bigint" Nullable="false" />
+          <Property Name="admin_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="admin_last_login" Type="datetime" />
+          <Property Name="admin_current_login" Type="datetime" />
+        </EntityType>
+        <EntityType Name="table_Bill">
+          <Key>
+            <PropertyRef Name="_Bill_id" />
+          </Key>
+          <Property Name="_Bill_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f_user_id" Type="int" Nullable="false" />
+          <Property Name="bill_paid" Type="float" />
+          <Property Name="bill_return" Type="float" />
+        </EntityType>
+        <EntityType Name="table_Bus">
+          <Key>
+            <PropertyRef Name="_Bus_id" />
+          </Key>
+          <Property Name="_Bus_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_driver_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bus_driver_cell" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_Destination">
+          <Key>
+            <PropertyRef Name="_Destination_id" />
+          </Key>
+          <Property Name="_Destination_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="destination_to" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="destination_from" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="f_route_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_Event">
+          <Key>
+            <PropertyRef Name="_Event_id" />
+          </Key>
+          <Property Name="_Event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="f_destination_id" Type="int" Nullable="false" />
+          <Property Name="f_picture_id" Type="int" Nullable="false" />
+          <Property Name="f_guard_id" Type="int" Nullable="false" />
+          <Property Name="f_bus_id" Type="int" Nullable="false" />
+          <Property Name="f_manager_id" Type="int" Nullable="false" />
+          <Property Name="event_duration" Type="int" />
+          <Property Name="event_cost" Type="int" />
+        </EntityType>
+        <EntityType Name="table_Guard">
+          <Key>
+            <PropertyRef Name="_Guard_id" />
+          </Key>
+          <Property Name="_Guard_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guard_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="guard_cell" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_Manager">
+          <Key>
+            <PropertyRef Name="_Manager_id" />
+          </Key>
+          <Property Name="_Manager_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="manager_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="manager_phone" Type="bigint" />
+          <Property Name="manager_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="manager_password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="manager_last_login" Type="datetime" />
+          <Property Name="manager_current_login" Type="datetime" />
+        </EntityType>
+        <EntityType Name="table_Picture">
+          <Key>
+            <PropertyRef Name="_Picture_id" />
+          </Key>
+          <Property Name="_Picture_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="picture_location" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_Route">
+          <Key>
+            <PropertyRef Name="_Route_id" />
+          </Key>
+          <Property Name="_Route_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="route_path" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_User">
+          <Key>
+            <PropertyRef Name="_User_id" />
+          </Key>
+          <Property Name="_User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_phone" Type="bigint" Nullable="false" />
+          <Property Name="user_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_last_login" Type="datetime" />
+          <Property Name="user_current_login" Type="datetime" />
+          <Property Name="f_event_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_table_Bus_table_Event">
+          <End Role="table_Bus" Type="Self.table_Bus" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Bus">
+              <PropertyRef Name="_Bus_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_bus_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Destination_table_Event">
+          <End Role="table_Destination" Type="Self.table_Destination" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Destination">
+              <PropertyRef Name="_Destination_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_destination_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Event_table_User">
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="0..1" />
+          <End Role="table_User" Type="Self.table_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Event">
+              <PropertyRef Name="_Event_id" />
+            </Principal>
+            <Dependent Role="table_User">
+              <PropertyRef Name="f_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Guard_table_Event">
+          <End Role="table_Guard" Type="Self.table_Guard" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Guard">
+              <PropertyRef Name="_Guard_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_guard_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Manager_table_Event">
+          <End Role="table_Manager" Type="Self.table_Manager" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Manager">
+              <PropertyRef Name="_Manager_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Picture_table_Event">
+          <End Role="table_Picture" Type="Self.table_Picture" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Picture">
+              <PropertyRef Name="_Picture_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_picture_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Route_table_Destination">
+          <End Role="table_Route" Type="Self.table_Route" Multiplicity="1" />
+          <End Role="table_Destination" Type="Self.table_Destination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Route">
+              <PropertyRef Name="_Route_id" />
+            </Principal>
+            <Dependent Role="table_Destination">
+              <PropertyRef Name="f_route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_User_table_Bill">
+          <End Role="table_User" Type="Self.table_User" Multiplicity="1" />
+          <End Role="table_Bill" Type="Self.table_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_User">
+              <PropertyRef Name="_User_id" />
+            </Principal>
+            <Dependent Role="table_Bill">
+              <PropertyRef Name="f_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="emsModelStoreContainer">
+          <EntitySet Name="table_Admin" EntityType="Self.table_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Bill" EntityType="Self.table_Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Bus" EntityType="Self.table_Bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Destination" EntityType="Self.table_Destination" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Event" EntityType="Self.table_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Guard" EntityType="Self.table_Guard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Manager" EntityType="Self.table_Manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Picture" EntityType="Self.table_Picture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_Route" EntityType="Self.table_Route" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_User" EntityType="Self.table_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_table_Bus_table_Event" Association="Self.FK_table_Bus_table_Event">
+            <End Role="table_Bus" EntitySet="table_Bus" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Destination_table_Event" Association="Self.FK_table_Destination_table_Event">
+            <End Role="table_Destination" EntitySet="table_Destination" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Event_table_User" Association="Self.FK_table_Event_table_User">
+            <End Role="table_Event" EntitySet="table_Event" />
+            <End Role="table_User" EntitySet="table_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Guard_table_Event" Association="Self.FK_table_Guard_table_Event">
+            <End Role="table_Guard" EntitySet="table_Guard" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Manager_table_Event" Association="Self.FK_table_Manager_table_Event">
+            <End Role="table_Manager" EntitySet="table_Manager" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Picture_table_Event" Association="Self.FK_table_Picture_table_Event">
+            <End Role="table_Picture" EntitySet="table_Picture" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Route_table_Destination" Association="Self.FK_table_Route_table_Destination">
+            <End Role="table_Route" EntitySet="table_Route" />
+            <End Role="table_Destination" EntitySet="table_Destination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_User_table_Bill" Association="Self.FK_table_User_table_Bill">
+            <End Role="table_User" EntitySet="table_User" />
+            <End Role="table_Bill" EntitySet="table_Bill" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="emsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="table_Admin">
+          <Key>
+            <PropertyRef Name="C_Admin_id" />
+          </Key>
+          <Property Name="C_Admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_phone" Type="Int64" Nullable="false" />
+          <Property Name="admin_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_last_login" Type="DateTime" Precision="3" />
+          <Property Name="admin_current_login" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="table_Bill">
+          <Key>
+            <PropertyRef Name="C_Bill_id" />
+          </Key>
+          <Property Name="C_Bill_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f_user_id" Type="Int32" Nullable="false" />
+          <Property Name="bill_paid" Type="Double" />
+          <Property Name="bill_return" Type="Double" />
+          <NavigationProperty Name="table_User" Relationship="Self.FK_table_User_table_Bill" FromRole="table_Bill" ToRole="table_User" />
+        </EntityType>
+        <EntityType Name="table_Bus">
+          <Key>
+            <PropertyRef Name="C_Bus_id" />
+          </Key>
+          <Property Name="C_Bus_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_driver_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bus_driver_cell" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="table_Event" Relationship="Self.FK_table_Bus_table_Event" FromRole="table_Bus" ToRole="table_Event" />
+        </EntityType>
+        <EntityType Name="table_Destination">
+          <Key>
+            <PropertyRef Name="C_Destination_id" />
+          </Key>
+          <Property Name="C_Destination_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="destination_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="destination_from" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="f_route_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="table_Event" Relationship="Self.FK_table_Destination_table_Event" FromRole="table_Destination" ToRole="table_Event" />
+          <NavigationProperty Name="table_Route" Relationship="Self.FK_table_Route_table_Destination" FromRole="table_Destination" ToRole="table_Route" />
+        </EntityType>
+        <EntityType Name="table_Event">
+          <Key>
+            <PropertyRef Name="C_Event_id" />
+          </Key>
+          <Property Name="C_Event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="event_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="f_destination_id" Type="Int32" Nullable="false" />
+          <Property Name="f_picture_id" Type="Int32" Nullable="false" />
+          <Property Name="f_guard_id" Type="Int32" Nullable="false" />
+          <Property Name="f_bus_id" Type="Int32" Nullable="false" />
+          <Property Name="f_manager_id" Type="Int32" Nullable="false" />
+          <Property Name="event_duration" Type="Int32" />
+          <Property Name="event_cost" Type="Int32" />
+          <NavigationProperty Name="table_Bus" Relationship="Self.FK_table_Bus_table_Event" FromRole="table_Event" ToRole="table_Bus" />
+          <NavigationProperty Name="table_Destination" Relationship="Self.FK_table_Destination_table_Event" FromRole="table_Event" ToRole="table_Destination" />
+          <NavigationProperty Name="table_User" Relationship="Self.FK_table_Event_table_User" FromRole="table_Event" ToRole="table_User" />
+          <NavigationProperty Name="table_Guard" Relationship="Self.FK_table_Guard_table_Event" FromRole="table_Event" ToRole="table_Guard" />
+          <NavigationProperty Name="table_Manager" Relationship="Self.FK_table_Manager_table_Event" FromRole="table_Event" ToRole="table_Manager" />
+          <NavigationProperty Name="table_Picture" Relationship="Self.FK_table_Picture_table_Event" FromRole="table_Event" ToRole="table_Picture" />
+        </EntityType>
+        <EntityType Name="table_Guard">
+          <Key>
+            <PropertyRef Name="C_Guard_id" />
+          </Key>
+          <Property Name="C_Guard_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guard_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="guard_cell" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="table_Event" Relationship="Self.FK_table_Guard_table_Event" FromRole="table_Guard" ToRole="table_Event" />
+        </EntityType>
+        <EntityType Name="table_Manager">
+          <Key>
+            <PropertyRef Name="C_Manager_id" />
+          </Key>
+          <Property Name="C_Manager_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="manager_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="manager_phone" Type="Int64" />
+          <Property Name="manager_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="manager_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="manager_last_login" Type="DateTime" Precision="3" />
+          <Property Name="manager_current_login" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="table_Event" Relationship="Self.FK_table_Manager_table_Event" FromRole="table_Manager" ToRole="table_Event" />
+        </EntityType>
+        <EntityType Name="table_Picture">
+          <Key>
+            <PropertyRef Name="C_Picture_id" />
+          </Key>
+          <Property Name="C_Picture_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="picture_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="table_Event" Relationship="Self.FK_table_Picture_table_Event" FromRole="table_Picture" ToRole="table_Event" />
+        </EntityType>
+        <EntityType Name="table_Route">
+          <Key>
+            <PropertyRef Name="C_Route_id" />
+          </Key>
+          <Property Name="C_Route_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="route_path" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="table_Destination" Relationship="Self.FK_table_Route_table_Destination" FromRole="table_Route" ToRole="table_Destination" />
+        </EntityType>
+        <EntityType Name="table_User">
+          <Key>
+            <PropertyRef Name="C_User_id" />
+          </Key>
+          <Property Name="C_User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_phone" Type="Int64" Nullable="false" />
+          <Property Name="user_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_last_login" Type="DateTime" Precision="3" />
+          <Property Name="user_current_login" Type="DateTime" Precision="3" />
+          <Property Name="f_event_id" Type="Int32" />
+          <NavigationProperty Name="table_Bill" Relationship="Self.FK_table_User_table_Bill" FromRole="table_User" ToRole="table_Bill" />
+          <NavigationProperty Name="table_Event" Relationship="Self.FK_table_Event_table_User" FromRole="table_User" ToRole="table_Event" />
+        </EntityType>
+        <Association Name="FK_table_User_table_Bill">
+          <End Role="table_User" Type="Self.table_User" Multiplicity="1" />
+          <End Role="table_Bill" Type="Self.table_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_User">
+              <PropertyRef Name="C_User_id" />
+            </Principal>
+            <Dependent Role="table_Bill">
+              <PropertyRef Name="f_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Bus_table_Event">
+          <End Role="table_Bus" Type="Self.table_Bus" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Bus">
+              <PropertyRef Name="C_Bus_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_bus_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Destination_table_Event">
+          <End Role="table_Destination" Type="Self.table_Destination" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Destination">
+              <PropertyRef Name="C_Destination_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_destination_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Route_table_Destination">
+          <End Role="table_Route" Type="Self.table_Route" Multiplicity="1" />
+          <End Role="table_Destination" Type="Self.table_Destination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Route">
+              <PropertyRef Name="C_Route_id" />
+            </Principal>
+            <Dependent Role="table_Destination">
+              <PropertyRef Name="f_route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Event_table_User">
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="0..1" />
+          <End Role="table_User" Type="Self.table_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Event">
+              <PropertyRef Name="C_Event_id" />
+            </Principal>
+            <Dependent Role="table_User">
+              <PropertyRef Name="f_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Guard_table_Event">
+          <End Role="table_Guard" Type="Self.table_Guard" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Guard">
+              <PropertyRef Name="C_Guard_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_guard_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Manager_table_Event">
+          <End Role="table_Manager" Type="Self.table_Manager" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Manager">
+              <PropertyRef Name="C_Manager_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_table_Picture_table_Event">
+          <End Role="table_Picture" Type="Self.table_Picture" Multiplicity="1" />
+          <End Role="table_Event" Type="Self.table_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="table_Picture">
+              <PropertyRef Name="C_Picture_id" />
+            </Principal>
+            <Dependent Role="table_Event">
+              <PropertyRef Name="f_picture_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="emsDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="table_Admin" EntityType="Self.table_Admin" />
+          <EntitySet Name="table_Bill" EntityType="Self.table_Bill" />
+          <EntitySet Name="table_Bus" EntityType="Self.table_Bus" />
+          <EntitySet Name="table_Destination" EntityType="Self.table_Destination" />
+          <EntitySet Name="table_Event" EntityType="Self.table_Event" />
+          <EntitySet Name="table_Guard" EntityType="Self.table_Guard" />
+          <EntitySet Name="table_Manager" EntityType="Self.table_Manager" />
+          <EntitySet Name="table_Picture" EntityType="Self.table_Picture" />
+          <EntitySet Name="table_Route" EntityType="Self.table_Route" />
+          <EntitySet Name="table_User" EntityType="Self.table_User" />
+          <AssociationSet Name="FK_table_User_table_Bill" Association="Self.FK_table_User_table_Bill">
+            <End Role="table_User" EntitySet="table_User" />
+            <End Role="table_Bill" EntitySet="table_Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Bus_table_Event" Association="Self.FK_table_Bus_table_Event">
+            <End Role="table_Bus" EntitySet="table_Bus" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Destination_table_Event" Association="Self.FK_table_Destination_table_Event">
+            <End Role="table_Destination" EntitySet="table_Destination" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Route_table_Destination" Association="Self.FK_table_Route_table_Destination">
+            <End Role="table_Route" EntitySet="table_Route" />
+            <End Role="table_Destination" EntitySet="table_Destination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Event_table_User" Association="Self.FK_table_Event_table_User">
+            <End Role="table_Event" EntitySet="table_Event" />
+            <End Role="table_User" EntitySet="table_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Guard_table_Event" Association="Self.FK_table_Guard_table_Event">
+            <End Role="table_Guard" EntitySet="table_Guard" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Manager_table_Event" Association="Self.FK_table_Manager_table_Event">
+            <End Role="table_Manager" EntitySet="table_Manager" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_table_Picture_table_Event" Association="Self.FK_table_Picture_table_Event">
+            <End Role="table_Picture" EntitySet="table_Picture" />
+            <End Role="table_Event" EntitySet="table_Event" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="emsModelStoreContainer" CdmEntityContainer="emsDBContext">
+          <EntitySetMapping Name="table_Admin">
+            <EntityTypeMapping TypeName="emsModel.table_Admin">
+              <MappingFragment StoreEntitySet="table_Admin">
+                <ScalarProperty Name="C_Admin_id" ColumnName="_Admin_id" />
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+                <ScalarProperty Name="admin_phone" ColumnName="admin_phone" />
+                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
+                <ScalarProperty Name="admin_last_login" ColumnName="admin_last_login" />
+                <ScalarProperty Name="admin_current_login" ColumnName="admin_current_login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Bill">
+            <EntityTypeMapping TypeName="emsModel.table_Bill">
+              <MappingFragment StoreEntitySet="table_Bill">
+                <ScalarProperty Name="C_Bill_id" ColumnName="_Bill_id" />
+                <ScalarProperty Name="f_user_id" ColumnName="f_user_id" />
+                <ScalarProperty Name="bill_paid" ColumnName="bill_paid" />
+                <ScalarProperty Name="bill_return" ColumnName="bill_return" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Bus">
+            <EntityTypeMapping TypeName="emsModel.table_Bus">
+              <MappingFragment StoreEntitySet="table_Bus">
+                <ScalarProperty Name="C_Bus_id" ColumnName="_Bus_id" />
+                <ScalarProperty Name="bus_driver_name" ColumnName="bus_driver_name" />
+                <ScalarProperty Name="bus_driver_cell" ColumnName="bus_driver_cell" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Destination">
+            <EntityTypeMapping TypeName="emsModel.table_Destination">
+              <MappingFragment StoreEntitySet="table_Destination">
+                <ScalarProperty Name="C_Destination_id" ColumnName="_Destination_id" />
+                <ScalarProperty Name="destination_to" ColumnName="destination_to" />
+                <ScalarProperty Name="destination_from" ColumnName="destination_from" />
+                <ScalarProperty Name="f_route_id" ColumnName="f_route_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Event">
+            <EntityTypeMapping TypeName="emsModel.table_Event">
+              <MappingFragment StoreEntitySet="table_Event">
+                <ScalarProperty Name="C_Event_id" ColumnName="_Event_id" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="f_destination_id" ColumnName="f_destination_id" />
+                <ScalarProperty Name="f_picture_id" ColumnName="f_picture_id" />
+                <ScalarProperty Name="f_guard_id" ColumnName="f_guard_id" />
+                <ScalarProperty Name="f_bus_id" ColumnName="f_bus_id" />
+                <ScalarProperty Name="f_manager_id" ColumnName="f_manager_id" />
+                <ScalarProperty Name="event_duration" ColumnName="event_duration" />
+                <ScalarProperty Name="event_cost" ColumnName="event_cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Guard">
+            <EntityTypeMapping TypeName="emsModel.table_Guard">
+              <MappingFragment StoreEntitySet="table_Guard">
+                <ScalarProperty Name="C_Guard_id" ColumnName="_Guard_id" />
+                <ScalarProperty Name="guard_name" ColumnName="guard_name" />
+                <ScalarProperty Name="guard_cell" ColumnName="guard_cell" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Manager">
+            <EntityTypeMapping TypeName="emsModel.table_Manager">
+              <MappingFragment StoreEntitySet="table_Manager">
+                <ScalarProperty Name="C_Manager_id" ColumnName="_Manager_id" />
+                <ScalarProperty Name="manager_name" ColumnName="manager_name" />
+                <ScalarProperty Name="manager_phone" ColumnName="manager_phone" />
+                <ScalarProperty Name="manager_email" ColumnName="manager_email" />
+                <ScalarProperty Name="manager_password" ColumnName="manager_password" />
+                <ScalarProperty Name="manager_last_login" ColumnName="manager_last_login" />
+                <ScalarProperty Name="manager_current_login" ColumnName="manager_current_login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Picture">
+            <EntityTypeMapping TypeName="emsModel.table_Picture">
+              <MappingFragment StoreEntitySet="table_Picture">
+                <ScalarProperty Name="C_Picture_id" ColumnName="_Picture_id" />
+                <ScalarProperty Name="picture_location" ColumnName="picture_location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_Route">
+            <EntityTypeMapping TypeName="emsModel.table_Route">
+              <MappingFragment StoreEntitySet="table_Route">
+                <ScalarProperty Name="C_Route_id" ColumnName="_Route_id" />
+                <ScalarProperty Name="route_path" ColumnName="route_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_User">
+            <EntityTypeMapping TypeName="emsModel.table_User">
+              <MappingFragment StoreEntitySet="table_User">
+                <ScalarProperty Name="C_User_id" ColumnName="_User_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_last_login" ColumnName="user_last_login" />
+                <ScalarProperty Name="user_current_login" ColumnName="user_current_login" />
+                <ScalarProperty Name="f_event_id" ColumnName="f_event_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

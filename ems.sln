@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ems", "ems\ems.csproj", "{2F5B2308-C26D-4642-8D29-078AB7E1B09F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emsDALEF", "emsDALEF\emsDALEF.csproj", "{AF07E13F-0560-4C8C-BB38-0040D61C630B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emsModels", "emsModels\emsModels.csproj", "{22347CF6-8A0E-4E7F-9853-F8BB95A06C8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F5B2308-C26D-4642-8D29-078AB7E1B09F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F5B2308-C26D-4642-8D29-078AB7E1B09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F5B2308-C26D-4642-8D29-078AB7E1B09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F5B2308-C26D-4642-8D29-078AB7E1B09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF07E13F-0560-4C8C-BB38-0040D61C630B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF07E13F-0560-4C8C-BB38-0040D61C630B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF07E13F-0560-4C8C-BB38-0040D61C630B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF07E13F-0560-4C8C-BB38-0040D61C630B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22347CF6-8A0E-4E7F-9853-F8BB95A06C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22347CF6-8A0E-4E7F-9853-F8BB95A06C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22347CF6-8A0E-4E7F-9853-F8BB95A06C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22347CF6-8A0E-4E7F-9853-F8BB95A06C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

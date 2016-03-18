@@ -1,0 +1,382 @@
+﻿<Window x:Class="ems.Admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ems"
+        mc:Ignorable="d"
+        Title="Admin" MinHeight="480" MinWidth="640" Height="482" Width="640" AllowsTransparency="False" WindowStyle="None" WindowStartupLocation="CenterScreen">
+
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Control}" x:Key="TooltipInError">
+
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="true">
+                            <Border Background="#ff5c1779" DockPanel.Dock="right" Margin="10,0,0,0" Width="24" Height="24" CornerRadius="14"
+                            ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white">
+                                </TextBlock>
+                            </Border>
+                            <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                                <Border BorderBrush="#ff5c1779" BorderThickness="2" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="adminBg">
+
+
+        <!-- Action Panel -->
+        <Grid x:Name="actionPanelShadow" Height="11" VerticalAlignment="Top" Margin="0,85,0,0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF777777" Offset="0"/>
+                    <GradientStop Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+        </Grid>
+        <Rectangle x:Name="border" Stroke="#FF777777" Visibility="Visible" StrokeThickness="4" />
+
+        <Grid x:Name="actionPanel" Background="#ff777777" Height="85" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="59*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="statusbar" Background="#22000000" Height="27" VerticalAlignment="Bottom" Margin="-1,0,1,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="btnMainClose" Cursor="Hand" Source="E:\Desktop\Material Resource\ic_close_white_48dp\android\drawable-xxxhdpi\ic_close_white_48dp.png" HorizontalAlignment="Right" Width="21" Margin="0,0,3,3" MouseLeftButtonUp="btnMainClose_MouseLeftButtonUp" Grid.Row="1"/>
+                <Image x:Name="btnMainMaximize" Cursor="Hand" Source="E:\Desktop\Material Resource\ic_call_made_white_48dp\android\drawable-xxxhdpi\ic_call_made_white_48dp.png" HorizontalAlignment="Right" Width="21" Margin="0,0,29,3" MouseLeftButtonUp="btnMainMaximize_MouseLeftButtonUp" Grid.Row="1"/>
+                <Image x:Name="btnMainMinimze" Cursor="Hand" Source="E:\Desktop\Material Resource\ic_remove_white_48dp\android\drawable-xxxhdpi\ic_remove_white_48dp.png" HorizontalAlignment="Right" Width="21" Margin="0,0,55,3" RenderTransformOrigin="-0.426,0.481" Grid.Row="1" MouseLeftButtonUp="btnMainMinimze_MouseLeftButtonUp"/>
+                <Image x:Name="btnMainMove" Cursor="SizeAll" Source="E:\Desktop\Material Resource\ic_open_with_white_48dp\android\drawable-xxxhdpi\ic_open_with_white_48dp.png" Margin="4,2,0,2" RenderTransformOrigin="-0.426,0.481" Grid.Row="1" HorizontalAlignment="Left" Width="21" MouseDown="btnMainMove_MouseDown"/>
+                <Label x:Name="statusbarTime" Content="Date" Margin="163,0" Grid.Row="1" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
+            <Image x:Name="btnBack" Cursor="Hand" Source="E:\Desktop\Material Resource\ic_arrow_back_white_48dp\android\drawable-xxxhdpi\ic_arrow_back_white_48dp.png" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="39" MouseLeftButtonUp="btnBack_MouseLeftButtonUp" Visibility="Hidden"/>
+            <Label x:Name="actionPanelLabel" Content="" HorizontalAlignment="Left" Margin="54,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="359" Height="39" Foreground="White" FontSize="21.333" FontWeight="Bold"/>
+            <Image x:Name="signOffAdmin" Cursor="Hand" Source="E:\Desktop\Material Resource\ic_account_circle_white_48dp\android\drawable-xxxhdpi\ic_account_circle_white_48dp.png" MouseLeftButtonUp="signOffAdmin_MouseLeftButtonUp" Grid.Row="1" HorizontalAlignment="Right" Width="59" Margin="0,0,3,0"/>
+
+        </Grid>
+
+        <Grid x:Name="removeUserScreenShadow" Margin="89,129,80,74" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="removeUserScreen" Margin="81,120,82,80" Background="#ff777777" Visibility="Hidden">
+            <ListView x:Name="userListRemove" Margin="36,37,39,36 " SelectionChanged="userListRemove_SelectionChanged" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="   Name : "></TextBlock>
+                            <TextBlock Text="{Binding user_name}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="   Phone : "></TextBlock>
+                            <TextBlock Text="{Binding user_phone}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="   Email : "></TextBlock>
+                            <TextBlock Text="{Binding user_email}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+
+        <Grid x:Name="statusScreenShadow" Margin="185,211,178,160" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="statusScreen" Margin="182,208,181,163" Background="#ff777777" Visibility="Hidden">
+            <Grid Margin="26,26,21,22" Background="#FFBDBDBD" Opacity="0.90">
+                <Label x:Name="statusBtn" Cursor="Hand" Content="" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-3,-3,2,2" HorizontalContentAlignment="Center" />
+            </Grid>
+
+        </Grid>
+
+        <!-- Change User Account Type Screen -->
+        <Grid x:Name="changeViewScreenShadow" Margin="89,120,82,24" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="changeViewScreen" Margin="85,111,85,28" Background="#ff777777" Visibility="Hidden">
+            <ListView x:Name="userList" Margin="36,37,39,36">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="   Name : "></TextBlock>
+                            <TextBlock Text="{Binding user_name}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="   Phone : "></TextBlock>
+                            <TextBlock Text="{Binding user_phone}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="   Email : "></TextBlock>
+                            <TextBlock Text="{Binding user_email}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Grid x:Name="addRouteScreenShadow" Margin="152,202,138,143" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="addRouteScreen" Margin="149,196,140,145" Background="#ff777777" Visibility="Hidden">
+            <Grid Margin="61,33,45,26" Background="#FFBDBDBD" Opacity="0.90">
+                <TextBox x:Name="addRouteName" Style="{StaticResource TooltipInError}" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="path_GotFocus" LostFocus="path_LostFocus" TextChanged="addRouteName_TextChanged">
+                    <Binding Path="nameRoute"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+        </Grid>
+
+        <!-- Add Guard Screen -->
+        <Grid x:Name="addGuardScreenShadow" Margin="85,172,86,70" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="addGuardScreen" Margin="81,161,89,74" Background="#ff777777" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="118*"/>
+                <RowDefinition Height="121*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="61,33,45,26" Background="#FFBDBDBD" Opacity="0.90">
+                <TextBox x:Name="addGuardName" Style="{StaticResource TooltipInError}" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="name_GotFocus" LostFocus="name_LostFocus" TextChanged="driverGuardTextChanged">
+                    <Binding Path="nameGuard"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,34,45,29" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="1">
+                <TextBox x:Name="addGuardCell" Style="{StaticResource TooltipInError}" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="cell_GotFocus" LostFocus="cell_LostFocus" TextChanged="driverGuardTextChanged">
+                    <Binding Path="cellGuard"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+        </Grid>
+
+        <!-- Add Bus Screen -->
+        <Grid x:Name="addBusScreenShadow" Margin="85,172,86,70" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="addBusScreen" Margin="81,161,89,74" Background="#ff777777" Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="118*"/>
+                <RowDefinition Height="121*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="61,33,45,26" Background="#FFBDBDBD" Opacity="0.90">
+                <TextBox x:Name="addDriverName" Style="{StaticResource TooltipInError}" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="name_GotFocus" LostFocus="name_LostFocus" TextChanged="driverGuardTextChanged">
+                    <Binding Path="nameDriver"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,34,45,29" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="1">
+                <TextBox x:Name="addDriverCell" Style="{StaticResource TooltipInError}" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="cell_GotFocus" LostFocus="cell_LostFocus" TextChanged="driverGuardTextChanged">
+                    <Binding Path="cellDriver"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+
+
+        </Grid>
+
+        <!-- Add Manager Screen -->
+        <Grid x:Name="addManagerScreenShadow" Margin="85,117,86,21" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="addManagerScreen" Margin="81,111,89,24" Background="#ff777777" Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="67*"/>
+                <RowDefinition Height="64*"/>
+                <RowDefinition Height="66*"/>
+                <RowDefinition Height="67*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="61,17,45,5" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="1">
+                <TextBox x:Name="addManagerName" Style="{StaticResource TooltipInError}" TextChanged="managerTextChanged" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="name_GotFocus" LostFocus="name_LostFocus" >
+                    <Binding Path="nameManager"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,14,45,5" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="2">
+                <TextBox x:Name="addManagerPassword" Style="{StaticResource TooltipInError}" TextChanged="managerTextChanged"  Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="password_GotFocus" LostFocus="password_LostFocus">
+                    <Binding Path="passwordManager"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,15,45,6" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="3">
+                <TextBox x:Name="addManagerCell" Style="{StaticResource TooltipInError}"  TextChanged="managerTextChanged" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="cell_GotFocus" LostFocus="cell_LostFocus" >
+                    <Binding Path="cellManager"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,14,45,8" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="4">
+                <TextBox x:Name="addManagerEmail" Style="{StaticResource TooltipInError}" TextChanged="managerTextChanged"  Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="email_GotFocus" LostFocus="email_LostFocus" >
+                    <Binding Path="emailManager"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+
+        </Grid>
+
+        <!-- Add Admin Screen -->
+        <Grid x:Name="addAdminScreenShadow" Margin="85,117,86,21" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="addAdminScreen" Margin="81,111,89,24" Background="#ff777777" Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="67*"/>
+                <RowDefinition Height="64*"/>
+                <RowDefinition Height="66*"/>
+                <RowDefinition Height="67*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="61,17,45,5" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="1">
+                <TextBox x:Name="addAdminName" Style="{StaticResource TooltipInError}" TextChanged="adminTextChanged" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="name_GotFocus" LostFocus="name_LostFocus" >
+                    <Binding Path="nameAdmin"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,14,45,5" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="2">
+                <TextBox x:Name="addAdminPassword" Style="{StaticResource TooltipInError}" TextChanged="adminTextChanged" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="password_GotFocus" LostFocus="password_LostFocus">
+                    <Binding Path="passwordAdmin"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,15,45,6" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="3">
+                <TextBox x:Name="addAdminCell" Style="{StaticResource TooltipInError}" TextChanged="adminTextChanged" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="cell_GotFocus" LostFocus="cell_LostFocus" >
+                    <Binding Path="cellAdmin"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid Margin="61,14,45,8" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="4">
+                <TextBox x:Name="addAdminEmail" Style="{StaticResource TooltipInError}" TextChanged="adminTextChanged" Cursor="Hand" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" GotFocus="email_GotFocus" LostFocus="email_LostFocus" >
+                    <Binding Path="emailAdmin"
+    					ValidatesOnDataErrors="True"   
+    					UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+
+        </Grid>
+
+        <!-- Admin Add Stuff Screen -->
+        <Grid x:Name="addScreenShadow" Margin="85,117,86,21" Background="#FFCBCBCB" Visibility="Hidden"/>
+        <Grid x:Name="addScreen" Margin="81,111,89,24" Background="#ff777777" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="115*"/>
+                <RowDefinition Height="111*"/>
+                <RowDefinition Height="113*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="266*"/>
+                <ColumnDefinition Width="267*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="45,22,31,17" Background="#FFBDBDBD" Opacity="0.90">
+                <Label x:Name="addAdmin" Cursor="Hand" Content="Add Administrator" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="addAdmin_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="44,22,33,17" Background="#FFBDBDBD" Opacity="0.90" Grid.Column="1">
+                <Label x:Name="addManager" Cursor="Hand" Content="Add Manager" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="addManager_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="44,20,33,16" Background="#FFBDBDBD" Opacity="0.90" Grid.Column="1" Grid.Row="1">
+                <Label x:Name="addGuard" Cursor="Hand" Content="Add Guard" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="addGuard_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="45,20,31,16" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="1">
+                <Label x:Name="addBus" Cursor="Hand" Content="Add Bus" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="addBus_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="44,21,33,17" Background="#FFBDBDBD" Opacity="0.90" Grid.Column="1" Grid.Row="2">
+                <Label x:Name="addDestination" Cursor="Hand" Content="Add Destination" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="addDestination_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="45,21,31,17" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="2">
+                <Label x:Name="addRoute" Cursor="Hand" Content="Add Route" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="addRoute_MouseLeftButtonUp"/>
+            </Grid>
+        </Grid>
+
+        <!-- Admin Main Screen -->
+        <Grid x:Name="mainScreenShadow" Margin="85,143,87,62" Background="#FFCBCBCB" Visibility="Visible"/>
+        <Grid x:Name="mainScreen" Margin="81,138,89,64" Background="#ff777777" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="136*"/>
+                <RowDefinition Height="137*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="266*"/>
+                <ColumnDefinition Width="267*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="45,34,31,26" Background="#FFBDBDBD" Opacity="0.90">
+                <Label x:Name="add" Cursor="Hand" Content="Add" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="add_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="44,34,33,26" Background="#FFBDBDBD" Opacity="0.90" Grid.Column="1">
+                <Label x:Name="remove" Cursor="Hand" Content="Remove" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="remove_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="44,27,33,34" Background="#FFBDBDBD" Opacity="0.90" Grid.Column="1" Grid.Row="1">
+                <Label x:Name="viewChange" Cursor="Hand" Content="View / Change" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="viewChange_MouseLeftButtonUp"/>
+            </Grid>
+            <Grid Margin="45,27,31,34" Background="#FFBDBDBD" Opacity="0.90" Grid.Row="1">
+                <Label x:Name="status" Cursor="Hand" Content="Status" VerticalContentAlignment="Center" Background="White" Foreground="Black" Margin="-10,-7,2,2" HorizontalContentAlignment="Center" MouseLeftButtonUp="status_MouseLeftButtonUp"/>
+            </Grid>
+        </Grid>
+
+        <!-- Floating Action Button -->
+        <Ellipse x:Name="fabShadow" Fill="#66777777" Margin="0,0,22,21" Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="48" />
+        <Ellipse x:Name="fabBg" Fill="#FF777777" Margin="0,0,24,24" Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="48" />
+        <Image x:Name="fabTask"  Margin="0,0,32,32" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="32"/>
+        <Ellipse x:Name="fab" Cursor="Hand" Fill="#00000000" Margin="0,0,24,24" Height="48" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="48" MouseLeftButtonUp="fab_MouseLeftButtonUp" MouseEnter="fab_MouseEnter" MouseLeave="fab_MouseLeave"  />
+
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="emsModelStoreContainer" CdmEntityContainer="emsDBContext">
+    <EntitySetMapping Name="table_Admin">
+      <EntityTypeMapping TypeName="emsModel.table_Admin">
+        <MappingFragment StoreEntitySet="table_Admin">
+          <ScalarProperty Name="C_Admin_id" ColumnName="_Admin_id" />
+          <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+          <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+          <ScalarProperty Name="admin_phone" ColumnName="admin_phone" />
+          <ScalarProperty Name="admin_email" ColumnName="admin_email" />
+          <ScalarProperty Name="admin_last_login" ColumnName="admin_last_login" />
+          <ScalarProperty Name="admin_current_login" ColumnName="admin_current_login" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Bill">
+      <EntityTypeMapping TypeName="emsModel.table_Bill">
+        <MappingFragment StoreEntitySet="table_Bill">
+          <ScalarProperty Name="C_Bill_id" ColumnName="_Bill_id" />
+          <ScalarProperty Name="f_user_id" ColumnName="f_user_id" />
+          <ScalarProperty Name="bill_paid" ColumnName="bill_paid" />
+          <ScalarProperty Name="bill_return" ColumnName="bill_return" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Bus">
+      <EntityTypeMapping TypeName="emsModel.table_Bus">
+        <MappingFragment StoreEntitySet="table_Bus">
+          <ScalarProperty Name="C_Bus_id" ColumnName="_Bus_id" />
+          <ScalarProperty Name="bus_driver_name" ColumnName="bus_driver_name" />
+          <ScalarProperty Name="bus_driver_cell" ColumnName="bus_driver_cell" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Destination">
+      <EntityTypeMapping TypeName="emsModel.table_Destination">
+        <MappingFragment StoreEntitySet="table_Destination">
+          <ScalarProperty Name="C_Destination_id" ColumnName="_Destination_id" />
+          <ScalarProperty Name="destination_to" ColumnName="destination_to" />
+          <ScalarProperty Name="destination_from" ColumnName="destination_from" />
+          <ScalarProperty Name="f_route_id" ColumnName="f_route_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Event">
+      <EntityTypeMapping TypeName="emsModel.table_Event">
+        <MappingFragment StoreEntitySet="table_Event">
+          <ScalarProperty Name="C_Event_id" ColumnName="_Event_id" />
+          <ScalarProperty Name="event_name" ColumnName="event_name" />
+          <ScalarProperty Name="f_destination_id" ColumnName="f_destination_id" />
+          <ScalarProperty Name="f_picture_id" ColumnName="f_picture_id" />
+          <ScalarProperty Name="f_guard_id" ColumnName="f_guard_id" />
+          <ScalarProperty Name="f_bus_id" ColumnName="f_bus_id" />
+          <ScalarProperty Name="f_manager_id" ColumnName="f_manager_id" />
+          <ScalarProperty Name="event_duration" ColumnName="event_duration" />
+          <ScalarProperty Name="event_cost" ColumnName="event_cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Guard">
+      <EntityTypeMapping TypeName="emsModel.table_Guard">
+        <MappingFragment StoreEntitySet="table_Guard">
+          <ScalarProperty Name="C_Guard_id" ColumnName="_Guard_id" />
+          <ScalarProperty Name="guard_name" ColumnName="guard_name" />
+          <ScalarProperty Name="guard_cell" ColumnName="guard_cell" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Manager">
+      <EntityTypeMapping TypeName="emsModel.table_Manager">
+        <MappingFragment StoreEntitySet="table_Manager">
+          <ScalarProperty Name="C_Manager_id" ColumnName="_Manager_id" />
+          <ScalarProperty Name="manager_name" ColumnName="manager_name" />
+          <ScalarProperty Name="manager_phone" ColumnName="manager_phone" />
+          <ScalarProperty Name="manager_email" ColumnName="manager_email" />
+          <ScalarProperty Name="manager_password" ColumnName="manager_password" />
+          <ScalarProperty Name="manager_last_login" ColumnName="manager_last_login" />
+          <ScalarProperty Name="manager_current_login" ColumnName="manager_current_login" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Picture">
+      <EntityTypeMapping TypeName="emsModel.table_Picture">
+        <MappingFragment StoreEntitySet="table_Picture">
+          <ScalarProperty Name="C_Picture_id" ColumnName="_Picture_id" />
+          <ScalarProperty Name="picture_location" ColumnName="picture_location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_Route">
+      <EntityTypeMapping TypeName="emsModel.table_Route">
+        <MappingFragment StoreEntitySet="table_Route">
+          <ScalarProperty Name="C_Route_id" ColumnName="_Route_id" />
+          <ScalarProperty Name="route_path" ColumnName="route_path" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="table_User">
+      <EntityTypeMapping TypeName="emsModel.table_User">
+        <MappingFragment StoreEntitySet="table_User">
+          <ScalarProperty Name="C_User_id" ColumnName="_User_id" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="user_last_login" ColumnName="user_last_login" />
+          <ScalarProperty Name="user_current_login" ColumnName="user_current_login" />
+          <ScalarProperty Name="f_event_id" ColumnName="f_event_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

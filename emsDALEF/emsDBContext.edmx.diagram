@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4db03a37218c4d2c8d0a9cba112c3369" Name="Diagram1">
+        <EntityTypeShape EntityType="emsModel.table_Admin" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Bill" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Bus" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Destination" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Event" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Guard" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Manager" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Picture" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_Route" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="emsModel.table_User" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="emsModel.FK_table_User_table_Bill" ManuallyRouted="false" />
+        <AssociationConnector Association="emsModel.FK_table_Bus_table_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="emsModel.FK_table_Destination_table_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="emsModel.FK_table_Route_table_Destination" ManuallyRouted="false" />
+        <AssociationConnector Association="emsModel.FK_table_Event_table_User" ManuallyRouted="false" />
+        <AssociationConnector Association="emsModel.FK_table_Guard_table_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="emsModel.FK_table_Manager_table_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="emsModel.FK_table_Picture_table_Event" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
